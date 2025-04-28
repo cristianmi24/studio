@@ -1,44 +1,45 @@
 'use client';
 
-import Link from 'next/link';
+import Link from 'next/link'; // Use next-intl Link
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet'; // Import SheetClose
-import { Menu, Database, Sun, Moon, ChevronDown, ChevronRight } from 'lucide-react'; // Import ChevronDown/Right
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
+import { Menu, Database, Sun, Moon, ChevronDown, Languages } from 'lucide-react'; // Add Languages icon
 import { useTheme } from 'next-themes';
 import * as React from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"; // Import DropdownMenu components
-import { modules } from '@/lib/modules-data'; // Import modules data
+  DropdownMenuTrigger, // Import DropdownMenuTrigger
+  DropdownMenuLabel, // Import Label
+  DropdownMenuSeparator // Import Separator
+} from "@/components/ui/dropdown-menu";
+import { modules } from '@/lib/modules-data';
 import { cn } from '@/lib/utils';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion" // Import Accordion for mobile nav
+} from "@/components/ui/accordion";
+import { useTranslations } from 'next-intl'; // Import next-intl hooks
+import { usePathname, useRouter } from 'next/navigation'; // Import Next.js navigation hooks
+import { locales } from '@/i18n'; // Import locales
 
+interface HeaderProps {
+    locale: string;
+}
 
-// Update hrefs to point to actual page routes
-const navItemsBase = [
-  { label: 'Inicio', href: '/' },
-  // Contenido is handled separately now with dropdown/accordion
-  { label: 'Ejercicios', href: '/ejercicios' },
-  { label: 'Créditos', href: '/creditos' },
-  { label: 'Contacto', href: '/contacto' },
-];
+export function Header({ locale }: HeaderProps) {
+  const t = useTranslations('Header'); // Initialize translations for the Header namespace
+  const pathname = usePathname(); // Get current pathname (without locale)
+  const router = useRouter(); // Get router instance
 
-export function Header() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
-  const [isMobileSheetOpen, setIsMobileSheetOpen] = React.useState(false); // State for mobile sheet
-
+  const [isMobileSheetOpen, setIsMobileSheetOpen] = React.useState(false);
 
   React.useEffect(() => setMounted(true), []);
-
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -46,14 +47,39 @@ export function Header() {
 
   const closeMobileSheet = () => setIsMobileSheetOpen(false);
 
+    // Function to switch locale
+  const switchLocale = (newLocale: string) => {
+    // Replace the locale part of the path
+    // Example: /es/contact -> /en/contact
+    // Need to remove the current locale prefix first
+    const currentLocalePrefix = `/${locale}`;
+    const pathWithoutLocale = pathname.startsWith(currentLocalePrefix)
+      ? pathname.substring(currentLocalePrefix.length) || '/' // Handle root path case
+      : pathname;
+
+    const newPath = `/${newLocale}${pathWithoutLocale}`;
+    router.replace(newPath); // Use replace to avoid adding to history stack
+  };
+
+  // Update hrefs to include locale and use translated labels
+    const navItemsBase = [
+    { label: t('nav_home'), href: `/${locale}/` },
+    // Content is handled separately
+    { label: t('nav_exercises'), href: `/${locale}/ejercicios` },
+    { label: t('nav_credits'), href: `/${locale}/creditos` },
+    { label: t('nav_contact'), href: `/${locale}/contacto` },
+    ];
+
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <div className="mr-4 hidden md:flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
+           {/* Update home link to include locale */}
+          <Link href={`/${locale}/`} className="mr-6 flex items-center space-x-2">
             <Database className="h-6 w-6 text-primary" />
             <span className="hidden font-bold sm:inline-block">
-              DataArch Learning
+              {t('title')}
             </span>
           </Link>
           {/* Desktop Nav */}
@@ -69,23 +95,26 @@ export function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                  <Button variant="ghost" className="transition-colors hover:text-foreground/80 text-foreground/60 px-3">
-                    Contenido
+                    {t('nav_content')} {/* Translate */}
                     <ChevronDown className="relative top-[1px] ml-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180" />
                  </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-56">
+                 {/* Update links to include locale */}
                 <DropdownMenuItem asChild>
-                    <Link href="/contenido" className="flex items-center gap-2 cursor-pointer">
-                         <Database className="h-4 w-4" /> {/* Example icon */}
-                         <span>Ver Resumen Contenido</span>
+                    <Link href={`/${locale}/contenido`} className="flex items-center gap-2 cursor-pointer">
+                         <Database className="h-4 w-4" />
+                         <span>{t('content_summary')}</span> {/* Translate */}
                     </Link>
                 </DropdownMenuItem>
                 {modules.map((module) => {
                    const Icon = module.icon;
                    return (
                      <DropdownMenuItem key={module.id} asChild>
-                       <Link href={`/modules/${module.id}`} className="flex items-center gap-2 cursor-pointer">
+                        {/* Update links to include locale */}
+                       <Link href={`/${locale}/modules/${module.id}`} className="flex items-center gap-2 cursor-pointer">
                          <Icon className="h-4 w-4 text-muted-foreground" />
+                         {/* Module titles might need translation if module data isn't already localized */}
                          <span>{module.title}</span>
                        </Link>
                      </DropdownMenuItem>
@@ -96,34 +125,36 @@ export function Header() {
           </nav>
         </div>
 
-        {/* Mobile Nav */}
+        {/* Mobile Nav Trigger */}
         <Sheet open={isMobileSheetOpen} onOpenChange={setIsMobileSheetOpen}>
           <SheetTrigger asChild>
             <Button
               variant="ghost"
               className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
-              aria-label="Toggle Menu"
+              aria-label={t('toggle_menu')} // Translate aria-label
             >
               <Menu className="h-5 w-5" />
-              <span className="sr-only">Toggle Menu</span>
+              <span className="sr-only">{t('toggle_menu')}</span> {/* Translate */}
             </Button>
           </SheetTrigger>
+          {/* Mobile Nav Content */}
           <SheetContent side="left" className="pr-0 w-[280px]">
+            {/* Update home link */}
             <Link
-              href="/"
+              href={`/${locale}/`}
               className="mb-6 flex items-center space-x-2 px-6"
               onClick={closeMobileSheet}
             >
               <Database className="h-6 w-6 text-primary" />
-              <span className="font-bold">DataArch Learning</span>
+              <span className="font-bold">{t('title')}</span> {/* Translate */}
             </Link>
             <div className="flex flex-col space-y-2 px-2">
+               {/* Update links and close sheet on click */}
               {navItemsBase.map((item) => (
                  <SheetClose key={item.label} asChild>
                     <Link
                         href={item.href}
                         className="block rounded-md px-4 py-2 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent"
-                        // onClick={closeMobileSheet} // Now handled by SheetClose
                         >
                         {item.label}
                     </Link>
@@ -133,27 +164,26 @@ export function Header() {
                 <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="item-1" className="border-b-0">
                         <AccordionTrigger className="flex items-center justify-between rounded-md px-4 py-2 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent hover:no-underline [&[data-state=open]>svg]:rotate-90">
-                            Contenido
-                             {/* Using ChevronRight, rotates 90deg when open */}
-                            {/* <ChevronRight className="h-4 w-4 shrink-0 transition-transform duration-200" /> */}
+                             {t('nav_content')} {/* Translate */}
                         </AccordionTrigger>
                         <AccordionContent className="pb-1 pl-4 pr-2 mt-1">
-                             {/* Link to main content page */}
+                             {/* Update link and close sheet */}
                              <SheetClose asChild>
                                 <Link
-                                    href="/contenido"
+                                    href={`/${locale}/contenido`}
                                     className="block rounded-md px-4 py-2 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50"
                                 >
-                                    Resumen Contenido
+                                    {t('content_summary')} {/* Translate */}
                                 </Link>
                              </SheetClose>
-                             {/* Links to individual modules */}
+                             {/* Update module links and close sheet */}
                              {modules.map((module) => (
                                 <SheetClose key={module.id} asChild>
                                     <Link
-                                        href={`/modules/${module.id}`}
+                                        href={`/${locale}/modules/${module.id}`}
                                         className="block rounded-md px-4 py-2 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50"
                                     >
+                                         {/* Module titles might need translation */}
                                         {module.title}
                                     </Link>
                                 </SheetClose>
@@ -161,25 +191,68 @@ export function Header() {
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
+                 {/* --- Mobile Language Switcher --- */}
+                 <div className="px-4 pt-4">
+                    <p className="text-sm font-medium text-muted-foreground mb-2">{t('language')}</p>
+                    {locales.map((loc) => (
+                         <SheetClose key={loc} asChild>
+                            <Button
+                                variant={locale === loc ? "secondary" : "ghost"}
+                                className="w-full justify-start mb-1"
+                                onClick={() => switchLocale(loc)}
+                            >
+                                {loc === 'en' ? 'English' : 'Español'}
+                            </Button>
+                        </SheetClose>
+                    ))}
+                </div>
+                 {/* --- End Mobile Language Switcher --- */}
             </div>
           </SheetContent>
         </Sheet>
 
+
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           {/* Mobile Title */}
            <div className="md:hidden">
-             <Link href="/" className="flex items-center space-x-2">
+             {/* Update link */}
+             <Link href={`/${locale}/`} className="flex items-center space-x-2">
                 <Database className="h-6 w-6 text-primary" />
-                 <span className="font-bold">DataArch</span> {/* Shortened for mobile */}
+                 <span className="font-bold">{t('short_title')}</span> {/* Translate */}
              </Link>
            </div>
+
           <nav className="flex items-center">
+            {/* Language Switcher Dropdown - Desktop */}
+             <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" aria-label={t('language')}>
+                        <Languages className="h-5 w-5" />
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>{t('language')}</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    {locales.map((loc) => (
+                        <DropdownMenuItem
+                            key={loc}
+                            onClick={() => switchLocale(loc)}
+                            className={cn("cursor-pointer", locale === loc && "bg-accent text-accent-foreground")}
+                        >
+                             {/* Display language name */}
+                            {loc === 'en' ? 'English' : 'Español'}
+                        </DropdownMenuItem>
+                    ))}
+                </DropdownMenuContent>
+            </DropdownMenu>
+
+             {/* Theme Toggle */}
             {mounted && (
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={toggleTheme}
-                aria-label="Toggle Theme"
+                aria-label={t('toggle_theme')} // Translate
               >
                 {theme === 'dark' ? (
                   <Sun className="h-5 w-5" />

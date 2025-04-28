@@ -1,14 +1,19 @@
+'use client'; // Potentially client component if interactions are added
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Linkedin, Github, Instagram } from "lucide-react";
-import Link from "next/link";
-import Image from 'next/image'; // Use next/image for optimized images
+import Link from "next/link"; // Use standard next/link, no locale needed for external links
+import Image from 'next/image';
+import { useTranslations } from 'next-intl'; // Import useTranslations
 
-const teamMembers = [
+// Keep member data structure, translations will be applied during render
+const teamMembersData = [
   {
-    name: "Nombre Completo 1",
-    role: "Diseñador Instruccional",
-    imageUrl: "https://picsum.photos/seed/person1/100/100", // Placeholder image
+    id: 1, // Added ID for easier key mapping in translations
+    nameKey: "member_1_name", // Key for translation file
+    roleKey: "role_1",       // Key for translation file
+    imageUrl: "https://picsum.photos/seed/person1/100/100",
     social: {
       linkedin: "https://linkedin.com/in/username1",
       github: "https://github.com/username1",
@@ -17,9 +22,10 @@ const teamMembers = [
     fallback: "N1",
   },
   {
-    name: "Nombre Completo 2",
-    role: "Desarrollador Frontend",
-    imageUrl: "https://picsum.photos/seed/person2/100/100", // Placeholder image
+    id: 2,
+    nameKey: "member_2_name",
+    roleKey: "role_2",
+    imageUrl: "https://picsum.photos/seed/person2/100/100",
     social: {
       linkedin: "https://linkedin.com/in/username2",
       github: "https://github.com/username2",
@@ -28,9 +34,10 @@ const teamMembers = [
      fallback: "N2",
   },
   {
-    name: "Nombre Completo 3",
-    role: "Experto en Contenido",
-    imageUrl: "https://picsum.photos/seed/person3/100/100", // Placeholder image
+    id: 3,
+    nameKey: "member_3_name",
+    roleKey: "role_3",
+    imageUrl: "https://picsum.photos/seed/person3/100/100",
     social: {
       linkedin: "https://linkedin.com/in/username3",
       github: "https://github.com/username3",
@@ -41,42 +48,48 @@ const teamMembers = [
 ];
 
 export function CreditsSection() {
+  const t = useTranslations('CreditsSection'); // Initialize translations
+
   return (
     <section id="creditos" className="container py-12 md:py-20">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
-        Créditos
+         {t('title')} {/* Translate section title */}
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {teamMembers.map((member, index) => (
-          <Card key={index} className="flex flex-col items-center text-center p-6 shadow-lg rounded-xl hover:scale-105 transition-transform duration-300">
-            <Avatar className="w-24 h-24 mb-4 border-2 border-primary">
-              <AvatarImage src={member.imageUrl} alt={`Foto de ${member.name}`} />
-              <AvatarFallback className="text-2xl bg-muted">{member.fallback}</AvatarFallback>
-            </Avatar>
-            <CardHeader className="p-0">
-              <CardTitle className="text-xl font-bold mb-1">{member.name}</CardTitle>
-              <CardDescription className="text-primary font-medium">{member.role}</CardDescription>
-            </CardHeader>
-            <CardContent className="p-0 mt-4 flex gap-4">
-              {member.social.linkedin && (
-                <Link href={member.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${member.name} LinkedIn`}>
-                  <Linkedin className="w-6 h-6 text-muted-foreground hover:text-primary transition-colors" />
-                </Link>
-              )}
-               {member.social.github && (
-                <Link href={member.social.github} target="_blank" rel="noopener noreferrer" aria-label={`${member.name} GitHub`}>
-                  <Github className="w-6 h-6 text-muted-foreground hover:text-primary transition-colors" />
-                </Link>
-              )}
-               {member.social.instagram && (
-                <Link href={member.social.instagram} target="_blank" rel="noopener noreferrer" aria-label={`${member.name} Instagram`}>
-                  <Instagram className="w-6 h-6 text-muted-foreground hover:text-primary transition-colors" />
-                </Link>
-              )}
-            </CardContent>
-          </Card>
-        ))}
+        {teamMembersData.map((member) => {
+           const name = t(member.nameKey); // Get translated name
+           const role = t(member.roleKey); // Get translated role
+           return (
+             <Card key={member.id} className="flex flex-col items-center text-center p-6 shadow-lg rounded-xl hover:scale-105 transition-transform duration-300">
+                <Avatar className="w-24 h-24 mb-4 border-2 border-primary">
+                <AvatarImage src={member.imageUrl} alt={`${t('alt_photo_prefix') || 'Photo of'} ${name}`} /> {/* Add translatable prefix */}
+                <AvatarFallback className="text-2xl bg-muted">{member.fallback}</AvatarFallback>
+                </Avatar>
+                <CardHeader className="p-0">
+                <CardTitle className="text-xl font-bold mb-1">{name}</CardTitle>
+                <CardDescription className="text-primary font-medium">{role}</CardDescription>
+                </CardHeader>
+                <CardContent className="p-0 mt-4 flex gap-4">
+                {member.social.linkedin && (
+                    <Link href={member.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${name} LinkedIn`}>
+                    <Linkedin className="w-6 h-6 text-muted-foreground hover:text-primary transition-colors" />
+                    </Link>
+                )}
+                {member.social.github && (
+                    <Link href={member.social.github} target="_blank" rel="noopener noreferrer" aria-label={`${name} GitHub`}>
+                    <Github className="w-6 h-6 text-muted-foreground hover:text-primary transition-colors" />
+                    </Link>
+                )}
+                {member.social.instagram && (
+                    <Link href={member.social.instagram} target="_blank" rel="noopener noreferrer" aria-label={`${name} Instagram`}>
+                    <Instagram className="w-6 h-6 text-muted-foreground hover:text-primary transition-colors" />
+                    </Link>
+                )}
+                </CardContent>
+             </Card>
+            );
+        })}
       </div>
     </section>
   );

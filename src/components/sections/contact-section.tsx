@@ -4,71 +4,69 @@ import { useState, type FormEvent } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea"; // Use ShadCN Textarea
+import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Send } from 'lucide-react';
-import { useToast } from "@/hooks/use-toast"; // Import useToast
+import { useToast } from "@/hooks/use-toast";
+import { useTranslations } from 'next-intl'; // Import useTranslations
 
 export function ContactSection() {
+  const t = useTranslations('ContactSection'); // Initialize translations
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const { toast } = useToast(); // Initialize toast
+  const { toast } = useToast();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Basic validation
     if (!name || !email || !message) {
       toast({
-        title: "Error",
-        description: "Por favor, completa todos los campos.",
+        title: t('toast_error_title'), // Translate toast title
+        description: t('toast_error_desc'), // Translate toast description
         variant: "destructive",
       });
       return;
     }
 
+    // Consider translating the subject prefix if needed, or keep it generic
     const subject = encodeURIComponent(`Consulta OVA: ${name}`);
+    // Body labels can remain in the base language (e.g., Spanish) or be translated if the recipient might be different
     const body = encodeURIComponent(`Nombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`);
-    const mailtoLink = `mailto:correo.destino@ejemplo.com?subject=${subject}&body=${body}`; // Replace with actual destination email
+    // Replace with actual destination email
+    const mailtoLink = `mailto:correo.destino@ejemplo.com?subject=${subject}&body=${body}`;
 
-    // Attempt to open mail client
     window.location.href = mailtoLink;
 
-     // Provide user feedback - Note: This doesn't confirm the email was sent
      toast({
-        title: "¡Listo!",
-        description: "Se abrirá tu cliente de correo para enviar el mensaje.",
+        title: t('toast_success_title'), // Translate success title
+        description: t('toast_success_desc'), // Translate success description
       });
 
-    // Optionally clear the form (or keep data if mailto fails)
-     // setName('');
-     // setEmail('');
-     // setMessage('');
-
-     console.log("Mailto link generated:", mailtoLink); // For debugging
+     console.log("Mailto link generated:", mailtoLink);
   };
 
   return (
     <section id="contacto" className="container py-12 md:py-20">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
-        Ayuda y Contacto
+         {t('title')} {/* Translate section title */}
       </h2>
         <Card className="max-w-2xl mx-auto shadow-lg">
             <CardHeader>
-            <CardTitle>Envíanos tu consulta</CardTitle>
+            <CardTitle>{t('card_title')}</CardTitle> {/* Translate card title */}
             <CardDescription>
-                ¿Tienes preguntas, sugerencias o encontraste algún problema? Déjanos tu mensaje.
+                 {t('card_desc')} {/* Translate card description */}
             </CardDescription>
             </CardHeader>
             <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid w-full items-center gap-1.5">
-                <Label htmlFor="name">Nombre</Label>
+                 {/* Translate label */}
+                <Label htmlFor="name">{t('label_name')}</Label>
                 <Input
                     type="text"
                     id="name"
-                    placeholder="Tu nombre completo"
+                    placeholder={t('placeholder_name')} // Translate placeholder
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
@@ -76,11 +74,12 @@ export function ContactSection() {
                 />
                 </div>
                 <div className="grid w-full items-center gap-1.5">
-                <Label htmlFor="email">Correo Electrónico</Label>
+                 {/* Translate label */}
+                <Label htmlFor="email">{t('label_email')}</Label>
                 <Input
                     type="email"
                     id="email"
-                    placeholder="tu.correo@ejemplo.com"
+                    placeholder={t('placeholder_email')} // Translate placeholder
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -88,10 +87,11 @@ export function ContactSection() {
                 />
                 </div>
                 <div className="grid w-full items-center gap-1.5">
-                <Label htmlFor="message">Mensaje</Label>
+                 {/* Translate label */}
+                <Label htmlFor="message">{t('label_message')}</Label>
                 <Textarea
                     id="message"
-                    placeholder="Escribe aquí tu consulta o comentario..."
+                    placeholder={t('placeholder_message')} // Translate placeholder
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     required
@@ -101,7 +101,7 @@ export function ContactSection() {
                 </div>
                 <Button type="submit" className="w-full md:w-auto">
                   <Send className="mr-2 h-4 w-4" />
-                  Enviar Mensaje
+                   {t('button_send')} {/* Translate button text */}
                 </Button>
             </form>
             </CardContent>

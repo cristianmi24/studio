@@ -1,0 +1,122 @@
+{
+  "Header": {
+    "title": "DataArch Learning",
+    "short_title": "DataArch",
+    "nav_home": "Inicio",
+    "nav_content": "Contenido",
+    "nav_exercises": "Ejercicios",
+    "nav_credits": "Créditos",
+    "nav_contact": "Contacto",
+    "content_summary": "Ver Resumen Contenido",
+    "toggle_menu": "Alternar Menú",
+    "toggle_theme": "Alternar Tema",
+    "language": "Idioma"
+  },
+  "Footer": {
+    "copyright": "© {currentYear} DataArch Learning. Todos los derechos reservados."
+  },
+  "HeroSection": {
+    "welcome": "Bienvenido a",
+    "app_name": "DataArch Learning",
+    "subtitle_intro": "Introducción a la",
+    "subtitle_topic": "Arquitectura de Datos",
+    "description": "Explora los fundamentos de la arquitectura de datos a través de módulos interactivos, ejercicios prácticos y autoevaluaciones.",
+    "start_learning": "Empezar a Aprender",
+    "objectives_title": "Objetivos del OVA",
+    "objective_1": "Comprender los conceptos clave de la arquitectura de datos.",
+    "objective_2": "Identificar diferentes tipos de arquitecturas y sus casos de uso.",
+    "objective_3": "Explorar herramientas y tecnologías relevantes en el campo.",
+    "objective_4": "Desarrollar habilidades básicas para diseñar arquitecturas de datos simples."
+  },
+  "ContentSection": {
+    "title": "Contenido del Curso",
+    "progress_text": "Progreso del curso: {viewedCount} de {totalCount} módulos vistos.",
+    "view_details": "Ver más detalles",
+    "module_1_title": "Módulo 1: Conceptos Fundamentales",
+    "module_1_desc": "Introducción a qué es la arquitectura de datos y por qué es importante.",
+    "module_1_pt1": "Definición de Arquitectura de Datos.",
+    "module_1_pt2": "Componentes clave: Datos, Procesos, Tecnología.",
+    "module_1_pt3": "Beneficios de una buena arquitectura.",
+    "module_1_pt4": "Roles relacionados (Arquitecto de Datos, Ingeniero de Datos).",
+    "module_2_title": "Módulo 2: Tipos de Arquitecturas",
+    "module_2_desc": "Exploración de diferentes enfoques arquitectónicos.",
+    "module_2_pt1": "Arquitectura Centralizada vs. Descentralizada.",
+    "module_2_pt2": "Data Warehouse vs. Data Lake vs. Data Lakehouse.",
+    "module_2_pt3": "Arquitectura Lambda y Kappa.",
+    "module_2_pt4": "Data Mesh y Data Fabric.",
+    "module_3_title": "Módulo 3: Almacenamiento y Modelado",
+    "module_3_desc": "Cómo se almacenan y organizan los datos.",
+    "module_3_pt1": "Bases de datos relacionales (SQL).",
+    "module_3_pt2": "Bases de datos NoSQL (Documental, Clave-Valor, Columnar, Grafo).",
+    "module_3_pt3": "Modelado de datos (Entidad-Relación, Dimensional).",
+    "module_3_pt4": "Conceptos de ETL y ELT.",
+    "module_4_title": "Módulo 4: Gobernanza y Seguridad",
+    "module_4_desc": "Asegurando la calidad y protección de los datos.",
+    "module_4_pt1": "Calidad de Datos.",
+    "module_4_pt2": "Seguridad de Datos (Encriptación, Acceso).",
+    "module_4_pt3": "Cumplimiento normativo (GDPR, etc.).",
+    "module_4_pt4": "Metadatos y Catálogo de Datos."
+  },
+    "ModulePage": {
+    "back_to_content": "Volver a Contenido"
+  },
+  "ExercisesSection": {
+      "title": "Ejercicios Interactivos",
+      "drag_drop_title": "Arrastrar y Soltar",
+      "drag_drop_desc": "Organiza los componentes de una arquitectura de datos simple arrastrándolos a su lugar correcto.",
+      "drag_drop_button": "Iniciar Ejercicio",
+      "order_steps_title": "Ordenar Pasos",
+      "order_steps_desc": "Coloca en orden los pasos típicos para implementar un Data Warehouse.",
+      "order_steps_button": "Iniciar Juego",
+      "quiz_title": "Prueba Rápida",
+      "quiz_desc": "Evalúa tu comprensión sobre los tipos de bases de datos NoSQL con esta prueba de opción múltiple.",
+      "quiz_button": "Iniciar Prueba",
+      "coming_soon_area": "(Área de Arrastrar y Soltar - Próximamente)",
+      "note": "Nota: Las funcionalidades interactivas completas se implementarán utilizando JavaScript puro."
+  },
+  "CreditsSection": {
+      "title": "Créditos",
+      "role_1": "Diseñador Instruccional",
+      "role_2": "Desarrollador Frontend",
+      "role_3": "Experto en Contenido",
+      "member_1_name": "Nombre Completo 1",
+      "member_2_name": "Nombre Completo 2",
+      "member_3_name": "Nombre Completo 3"
+  },
+  "ContactSection": {
+      "title": "Ayuda y Contacto",
+      "card_title": "Envíanos tu consulta",
+      "card_desc": "¿Tienes preguntas, sugerencias o encontraste algún problema? Déjanos tu mensaje.",
+      "label_name": "Nombre",
+      "placeholder_name": "Tu nombre completo",
+      "label_email": "Correo Electrónico",
+      "placeholder_email": "tu.correo@ejemplo.com",
+      "label_message": "Mensaje",
+      "placeholder_message": "Escribe aquí tu consulta o comentario...",
+      "button_send": "Enviar Mensaje",
+      "toast_error_title": "Error",
+      "toast_error_desc": "Por favor, completa todos los campos.",
+      "toast_success_title": "¡Listo!",
+      "toast_success_desc": "Se abrirá tu cliente de correo para enviar el mensaje."
+  },
+    "Chatbot": {
+    "fab_open": "Abrir Chat de Ayuda",
+    "fab_close": "Cerrar Chat",
+    "header_title": "Asistente de Ayuda",
+    "close_button_sr": "Cerrar",
+    "faq_prompt": "Selecciona una pregunta frecuente:",
+    "faq_q1": "¿Qué es la arquitectura de datos?",
+    "faq_a1": "La arquitectura de datos describe cómo se recopilan, almacenan, transforman, distribuyen y consumen los datos en una organización. Es el plano maestro para la gestión de datos.",
+    "faq_q2": "¿Cuál es la diferencia entre Data Warehouse y Data Lake?",
+    "faq_a2": "Un Data Warehouse almacena datos estructurados y procesados para análisis específicos (BI). Un Data Lake almacena datos crudos en cualquier formato (estructurado, semiestructurado, no estructurado) para exploración y análisis más flexibles.",
+    "faq_q3": "¿Necesito saber programar para este curso?",
+    "faq_a3": "No es estrictamente necesario para entender los conceptos fundamentales. Sin embargo, tener conocimientos básicos de SQL o Python puede ser útil para algunos ejemplos prácticos.",
+    "faq_q4": "¿Cómo puedo navegar por los módulos?",
+    "faq_a4": "Puedes usar la barra de navegación en la parte superior o hacer clic en los títulos de las secciones en la página principal para ir directamente a cada módulo o sección.",
+    "faq_q5": "¿Los ejercicios son calificados?",
+    "faq_a5": "Los ejercicios interactivos y las pruebas rápidas son principalmente para autoevaluación y práctica. No forman parte de una calificación formal."
+  },
+   "Preloader": {
+    "loading": "Cargando..."
+  }
+}
