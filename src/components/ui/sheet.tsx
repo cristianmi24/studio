@@ -1,3 +1,5 @@
+// Existing file content is correct and includes SheetClose export. No changes needed here based on header usage.
+// Keeping the file content as is.
 "use client"
 
 import * as React from "react"
@@ -11,7 +13,7 @@ const Sheet = SheetPrimitive.Root
 
 const SheetTrigger = SheetPrimitive.Trigger
 
-const SheetClose = SheetPrimitive.Close
+const SheetClose = SheetPrimitive.Close // Ensure SheetClose is exported
 
 const SheetPortal = SheetPrimitive.Portal
 
@@ -131,7 +133,7 @@ export {
   SheetPortal,
   SheetOverlay,
   SheetTrigger,
-  SheetClose,
+  SheetClose, // Ensure SheetClose is exported
   SheetContent,
   SheetHeader,
   SheetFooter,
