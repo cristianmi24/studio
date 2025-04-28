@@ -1,15 +1,18 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link'; // Import Link
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { BrainCircuit, DatabaseZap, Network, Layers } from "lucide-react";
-import { Progress } from "@/components/ui/progress"; // Import Progress component
+import { Card, CardContent, CardHeader, CardDescription } from "@/components/ui/card"; // Remove CardTitle as it's not used here
+import { BrainCircuit, DatabaseZap, Network, Layers, ExternalLink } from "lucide-react"; // Add ExternalLink
+import { Progress } from "@/components/ui/progress";
+import { Button } from '@/components/ui/button'; // Import Button
 
 const modules = [
   {
@@ -23,6 +26,7 @@ const modules = [
       "Beneficios de una buena arquitectura.",
       "Roles relacionados (Arquitecto de Datos, Ingeniero de Datos).",
     ],
+    link: "#", // Placeholder link
   },
   {
     id: "module-2",
@@ -35,6 +39,7 @@ const modules = [
       "Arquitectura Lambda y Kappa.",
       "Data Mesh y Data Fabric.",
     ],
+     link: "#", // Placeholder link
   },
   {
     id: "module-3",
@@ -47,6 +52,7 @@ const modules = [
       "Modelado de datos (Entidad-Relación, Dimensional).",
       "Conceptos de ETL y ELT.",
     ],
+     link: "#", // Placeholder link
   },
    {
     id: "module-4",
@@ -59,6 +65,7 @@ const modules = [
       "Cumplimiento normativo (GDPR, etc.).",
       "Metadatos y Catálogo de Datos.",
     ],
+     link: "#", // Placeholder link
   },
 ];
 
@@ -69,8 +76,21 @@ export function ContentSection() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    // Load viewed modules from localStorage on component mount
+    const storedViewedModules = localStorage.getItem('viewedModules');
+    if (storedViewedModules) {
+      setViewedModules(new Set(JSON.parse(storedViewedModules)));
+    }
+  }, []);
+
+
+  useEffect(() => {
     const newProgress = Math.round((viewedModules.size / totalModules) * 100);
     setProgress(newProgress);
+    // Save viewed modules to localStorage whenever it changes
+    if (viewedModules.size > 0){ // Avoid saving empty set initially if nothing is stored
+       localStorage.setItem('viewedModules', JSON.stringify(Array.from(viewedModules)));
+    }
   }, [viewedModules]);
 
   const handleModuleView = (moduleId: string | undefined) => {
@@ -113,11 +133,18 @@ export function ContentSection() {
                        <CardDescription className="text-base">{module.description}</CardDescription>
                     </CardHeader>
                     <CardContent className="p-0">
-                        <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                        <ul className="list-disc list-inside space-y-1 text-muted-foreground mb-4">
                         {module.content.map((item, index) => (
                             <li key={index}>{item}</li>
                         ))}
                         </ul>
+                        {/* Add the "Ver más detalles" link/button */}
+                        <Button variant="link" asChild className="p-0 h-auto text-primary hover:text-accent transition-colors">
+                            <Link href={module.link} aria-label={`Ver más detalles sobre ${module.title}`}>
+                                Ver más detalles
+                                <ExternalLink className="ml-1 h-4 w-4" />
+                            </Link>
+                        </Button>
                     </CardContent>
                  </Card>
                </AccordionContent>
@@ -128,3 +155,4 @@ export function ContentSection() {
     </section>
   );
 }
+
