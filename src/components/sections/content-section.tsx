@@ -1,3 +1,6 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import {
   Accordion,
   AccordionContent,
@@ -5,7 +8,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { BrainCircuit, DatabaseZap, Network, Layers } from "lucide-react"; // Import relevant icons
+import { BrainCircuit, DatabaseZap, Network, Layers } from "lucide-react";
+import { Progress } from "@/components/ui/progress"; // Import Progress component
 
 const modules = [
   {
@@ -58,14 +62,41 @@ const modules = [
   },
 ];
 
+const totalModules = modules.length;
+
 export function ContentSection() {
+  const [viewedModules, setViewedModules] = useState<Set<string>>(new Set());
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const newProgress = Math.round((viewedModules.size / totalModules) * 100);
+    setProgress(newProgress);
+  }, [viewedModules]);
+
+  const handleModuleView = (moduleId: string | undefined) => {
+    if (moduleId && !viewedModules.has(moduleId)) {
+       setViewedModules(prev => new Set(prev).add(moduleId));
+    }
+  };
+
+
   return (
     <section id="contenido" className="container py-12 md:py-20">
-      <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
+      <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
         Contenido del Curso
       </h2>
+      <p className="text-center text-muted-foreground mb-2">
+        Progreso del curso: {viewedModules.size} de {totalModules} módulos vistos.
+      </p>
+      <Progress value={progress} className="w-full max-w-3xl mx-auto mb-10 h-3" aria-label={`Progreso del curso: ${progress}%`} />
 
-      <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
+
+      <Accordion
+        type="single"
+        collapsible
+        className="w-full max-w-3xl mx-auto"
+        onValueChange={handleModuleView} // Update progress when accordion value changes
+        >
         {modules.map((module) => {
           const Icon = module.icon;
            return (
