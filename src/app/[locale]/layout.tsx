@@ -10,7 +10,7 @@ import Preloader from '@/components/preloader';
 import Chatbot from '@/components/chatbot';
 import { NextIntlClientProvider } from 'next-intl';
 import { locales } from '@/i18n'; // Import locales
-import { getMessages } from 'next-intl/server'; // Import getMessages instead of getTranslations
+import { getMessages } from 'next-intl/server'; // Import getMessages
 
 const poppins = Poppins({
   weight: ['400', '600', '700'],
@@ -43,7 +43,7 @@ export default async function LocaleLayout({
   params: { locale: string };
 }>) {
   // Use getMessages() to provide all messages for the client components
-  // This resolves the "Could not resolve `Common`" error as we are not fetching a specific namespace here.
+  // getRequestConfig in i18n.ts now handles locale validation.
   const messages = await getMessages();
 
   return (

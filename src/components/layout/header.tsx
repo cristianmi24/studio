@@ -1,3 +1,5 @@
+
+
 'use client';
 
 import Link from 'next/link'; // Use next-intl Link
@@ -59,6 +61,7 @@ export function Header({ locale }: HeaderProps) {
 
     const newPath = `/${newLocale}${pathWithoutLocale}`;
     router.replace(newPath); // Use replace to avoid adding to history stack
+    closeMobileSheet(); // Close sheet after switching locale
   };
 
   // Update hrefs to include locale and use translated labels
@@ -194,17 +197,22 @@ export function Header({ locale }: HeaderProps) {
                  {/* --- Mobile Language Switcher --- */}
                  <div className="px-4 pt-4">
                     <p className="text-sm font-medium text-muted-foreground mb-2">{t('language')}</p>
-                    {locales.map((loc) => (
-                         <SheetClose key={loc} asChild>
-                            <Button
+                    {locales.map((loc) => {
+                        const langName = loc === 'en' ? 'English' : 'Español';
+                        return (
+                            // **FIX**: Added asChild here
+                            <SheetClose key={loc} asChild>
+                                <Button
                                 variant={locale === loc ? "secondary" : "ghost"}
                                 className="w-full justify-start mb-1"
                                 onClick={() => switchLocale(loc)}
-                            >
-                                {loc === 'en' ? 'English' : 'Español'}
-                            </Button>
-                        </SheetClose>
-                    ))}
+                                aria-label={`Switch to ${langName}`} // Add aria-label
+                                >
+                                {langName}
+                                </Button>
+                            </SheetClose>
+                        );
+                    })}
                 </div>
                  {/* --- End Mobile Language Switcher --- */}
             </div>

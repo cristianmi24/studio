@@ -40,19 +40,22 @@ export interface ButtonProps
   asChild?: boolean
 }
 
-// Reverting the change here - pass children implicitly via props spread
+// Correctly handling children, especially for asChild
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
+  ({ className, variant, size, asChild = false, children, ...props }, ref) => { // Destructure children
+    const Comp = asChild ? Slot : "button";
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
-        {...props} // props includes children implicitly
-      />
-    )
+        {...props}
+      >
+        {children} {/* Pass children down to Slot or button */}
+      </Comp>
+    );
   }
-)
+);
 Button.displayName = "Button"
 
 export { Button, buttonVariants }
+
