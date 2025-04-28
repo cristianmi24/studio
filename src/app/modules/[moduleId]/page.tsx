@@ -63,7 +63,8 @@ export default function ModulePage({ params }: { params: ModulePageParams }) {
   return (
     <div className="container py-12 md:py-20">
        <Button variant="outline" asChild className="mb-8">
-            <Link href="/#contenido">
+            {/* Updated link to point to /contenido */}
+            <Link href="/contenido">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Volver a Contenido
             </Link>

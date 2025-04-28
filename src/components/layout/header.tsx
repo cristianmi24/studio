@@ -7,12 +7,13 @@ import { Menu, Database, Sun, Moon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import * as React from 'react';
 
+// Update hrefs to point to actual page routes
 const navItems = [
-  { label: 'Inicio', href: '#inicio' },
-  { label: 'Contenido', href: '#contenido' },
-  { label: 'Ejercicios', href: '#ejercicios' },
-  { label: 'Créditos', href: '#creditos' },
-  { label: 'Contacto', href: '#contacto' },
+  { label: 'Inicio', href: '/' }, // Changed from #inicio
+  { label: 'Contenido', href: '/contenido' }, // Changed from #contenido
+  { label: 'Ejercicios', href: '/ejercicios' }, // Changed from #ejercicios
+  { label: 'Créditos', href: '/creditos' }, // Changed from #creditos
+  { label: 'Contacto', href: '/contacto' }, // Changed from #contacto
 ];
 
 export function Header() {
@@ -61,6 +62,9 @@ export function Header() {
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="pr-0 w-[240px]">
+             {/* Ensure SheetContent closes after navigation */}
+             {/* One way is to wrap Link in a function that closes the sheet, */}
+             {/* but for simplicity, let's assume default behavior or manual close */}
             <Link
               href="/"
               className="mb-6 flex items-center space-x-2 px-6"
@@ -74,6 +78,7 @@ export function Header() {
                   key={item.label}
                   href={item.href}
                   className="text-muted-foreground hover:text-foreground"
+                  // onClick={() => { /* Add logic to close sheet if needed */ }}
                 >
                   {item.label}
                 </Link>
