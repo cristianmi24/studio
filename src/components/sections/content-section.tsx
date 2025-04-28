@@ -13,61 +13,7 @@ import { Card, CardContent, CardHeader, CardDescription } from "@/components/ui/
 import { BrainCircuit, DatabaseZap, Network, Layers, ExternalLink } from "lucide-react"; // Add ExternalLink
 import { Progress } from "@/components/ui/progress";
 import { Button } from '@/components/ui/button'; // Import Button
-
-const modules = [
-  {
-    id: "module-1",
-    title: "Módulo 1: Conceptos Fundamentales",
-    icon: BrainCircuit,
-    description: "Introducción a qué es la arquitectura de datos y por qué es importante.",
-    content: [
-      "Definición de Arquitectura de Datos.",
-      "Componentes clave: Datos, Procesos, Tecnología.",
-      "Beneficios de una buena arquitectura.",
-      "Roles relacionados (Arquitecto de Datos, Ingeniero de Datos).",
-    ],
-    link: "#", // Placeholder link
-  },
-  {
-    id: "module-2",
-    title: "Módulo 2: Tipos de Arquitecturas",
-    icon: Layers,
-    description: "Exploración de diferentes enfoques arquitectónicos.",
-    content: [
-      "Arquitectura Centralizada vs. Descentralizada.",
-      "Data Warehouse vs. Data Lake vs. Data Lakehouse.",
-      "Arquitectura Lambda y Kappa.",
-      "Data Mesh y Data Fabric.",
-    ],
-     link: "#", // Placeholder link
-  },
-  {
-    id: "module-3",
-    title: "Módulo 3: Almacenamiento y Modelado",
-    icon: DatabaseZap,
-    description: "Cómo se almacenan y organizan los datos.",
-    content: [
-      "Bases de datos relacionales (SQL).",
-      "Bases de datos NoSQL (Documental, Clave-Valor, Columnar, Grafo).",
-      "Modelado de datos (Entidad-Relación, Dimensional).",
-      "Conceptos de ETL y ELT.",
-    ],
-     link: "#", // Placeholder link
-  },
-   {
-    id: "module-4",
-    title: "Módulo 4: Gobernanza y Seguridad",
-    icon: Network,
-    description: "Asegurando la calidad y protección de los datos.",
-    content: [
-      "Calidad de Datos.",
-      "Seguridad de Datos (Encriptación, Acceso).",
-      "Cumplimiento normativo (GDPR, etc.).",
-      "Metadatos y Catálogo de Datos.",
-    ],
-     link: "#", // Placeholder link
-  },
-];
+import { modules } from '@/lib/modules-data'; // Import modules data
 
 const totalModules = modules.length;
 
@@ -91,7 +37,7 @@ export function ContentSection() {
     if (viewedModules.size > 0){ // Avoid saving empty set initially if nothing is stored
        localStorage.setItem('viewedModules', JSON.stringify(Array.from(viewedModules)));
     }
-  }, [viewedModules]);
+  }, [viewedModules, totalModules]); // Add totalModules to dependency array
 
   const handleModuleView = (moduleId: string | undefined) => {
     if (moduleId && !viewedModules.has(moduleId)) {
@@ -134,13 +80,13 @@ export function ContentSection() {
                     </CardHeader>
                     <CardContent className="p-0">
                         <ul className="list-disc list-inside space-y-1 text-muted-foreground mb-4">
-                        {module.content.map((item, index) => (
+                        {module.summaryPoints.map((item, index) => ( // Use summaryPoints here
                             <li key={index}>{item}</li>
                         ))}
                         </ul>
-                        {/* Add the "Ver más detalles" link/button */}
+                        {/* Update the link to point to the dynamic route */}
                         <Button variant="link" asChild className="p-0 h-auto text-primary hover:text-accent transition-colors">
-                            <Link href={module.link} aria-label={`Ver más detalles sobre ${module.title}`}>
+                            <Link href={`/modules/${module.id}`} aria-label={`Ver más detalles sobre ${module.title}`}>
                                 Ver más detalles
                                 <ExternalLink className="ml-1 h-4 w-4" />
                             </Link>
