@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from 'next/image'; // Import next/image
 
 export function HeroSection() {
   return (
@@ -39,59 +40,17 @@ export function HeroSection() {
       </div>
 
       {/* Hero Image */}
-      <div className="z-10 order-first lg:order-last">
-        {/* Placeholder for an illustrative image/animation */}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-          className="w-full max-w-md lg:max-w-lg h-auto text-primary drop-shadow-lg"
-        >
-          <path fill="currentColor" d="M256 0c-17.7 0-32 14.3-32 32V128H160c-17.7 0-32 14.3-32 32s14.3 32 32 32h64v64H160c-17.7 0-32 14.3-32 32s14.3 32 32 32h64v64H160c-17.7 0-32 14.3-32 32s14.3 32 32 32h64v96c0 17.7 14.3 32 32 32s32-14.3 32-32V416h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288V288h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288V192h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288V32c0-17.7-14.3-32-32-32z"/>
-        </svg>
+      <div className="z-10 order-first lg:order-last flex justify-center items-center">
+        <Image
+          src="https://picsum.photos/seed/data-study/600/400" // Placeholder image related to data/studying
+          alt="Visualización abstracta de conceptos de arquitectura de datos"
+          width={600}
+          height={400}
+          className="rounded-lg shadow-xl object-cover"
+          priority // Load the image with priority as it's in the hero section
+        />
       </div>
 
-      {/* Shadow effect */}
-      <div className="shadow"></div>
     </section>
   );
-}
-
-// Basic shadow styling (can be enhanced in globals.css)
-const shadowStyle = `
-.shadow {
-  position: absolute;
-  filter: blur(60px);
-  opacity: 0.5;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(25,118,210,0.4) 0%, rgba(0,128,128,0.3) 70%, rgba(255,255,255,0) 100%);
-  width: 60%;
-  height: 60%;
-  top: 20%;
-  left: 20%;
-  z-index: 0;
-  transform: translateZ(-10px);
-  animation: pulse 5s infinite ease-in-out;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.05); opacity: 0.6; }
-}
-
-@media (max-width: 1024px) {
-  .shadow {
-    width: 80%;
-    height: 80%;
-    top: 10%;
-    left: 10%;
-  }
-}
-`;
-
-// Inject styles directly (consider moving to CSS file for better organization)
-if (typeof window !== 'undefined') {
-  const styleSheet = document.createElement("style");
-  styleSheet.type = "text/css";
-  styleSheet.innerText = shadowStyle;
-  document.head.appendChild(styleSheet);
 }
