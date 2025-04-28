@@ -3,7 +3,7 @@
 'use client';
 
 import Link from 'next/link'; // Use next-intl Link
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button'; // Import buttonVariants
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { Menu, Database, Sun, Moon, ChevronDown, Languages } from 'lucide-react'; // Add Languages icon
 import { useTheme } from 'next-themes';
@@ -87,12 +87,18 @@ export function Header({ locale }: HeaderProps) {
           </Link>
           {/* Desktop Nav */}
           <nav className="flex items-center gap-1 text-sm">
+             {/* **FIX**: Removed Button asChild, applied styles directly to Link */}
              {navItemsBase.map((item) => (
-              <Button key={item.label} variant="ghost" asChild className="transition-colors hover:text-foreground/80 text-foreground/60 px-3">
-                <Link href={item.href}>
-                  {item.label}
+                 <Link
+                    key={item.label}
+                    href={item.href}
+                    className={cn(
+                        buttonVariants({ variant: "ghost" }), // Apply button styles
+                        "transition-colors hover:text-foreground/80 text-foreground/60 px-3" // Keep original classes
+                    )}
+                    >
+                    {item.label}
                 </Link>
-               </Button>
             ))}
             {/* Contenido Dropdown */}
             <DropdownMenu>
@@ -200,7 +206,6 @@ export function Header({ locale }: HeaderProps) {
                     {locales.map((loc) => {
                         const langName = loc === 'en' ? 'English' : 'Español';
                         return (
-                            // **FIX**: Added asChild here
                             <SheetClose key={loc} asChild>
                                 <Button
                                 variant={locale === loc ? "secondary" : "ghost"}

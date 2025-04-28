@@ -1,3 +1,4 @@
+
 {
   "Header": {
     "title": "DataArch Learning",
@@ -81,7 +82,8 @@
       "role_3": "Content Expert",
       "member_1_name": "Full Name 1",
       "member_2_name": "Full Name 2",
-      "member_3_name": "Full Name 3"
+      "member_3_name": "Full Name 3",
+      "alt_photo_prefix": "Photo of"
   },
   "ContactSection": {
       "title": "Help and Contact",

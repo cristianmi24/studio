@@ -1,3 +1,4 @@
+
 {
   "Header": {
     "title": "DataArch Learning",
@@ -71,7 +72,7 @@
       "quiz_title": "Prueba Rápida",
       "quiz_desc": "Evalúa tu comprensión sobre los tipos de bases de datos NoSQL con esta prueba de opción múltiple.",
       "quiz_button": "Iniciar Prueba",
-      "coming_soon_area": "(Área de Arrastrar y Soltar - Próximamente)",
+      "coming_soon_area": "(Área Interactiva - Próximamente)",
       "note": "Nota: Las funcionalidades interactivas completas se implementarán utilizando JavaScript puro."
   },
   "CreditsSection": {
@@ -81,7 +82,8 @@
       "role_3": "Experto en Contenido",
       "member_1_name": "Nombre Completo 1",
       "member_2_name": "Nombre Completo 2",
-      "member_3_name": "Nombre Completo 3"
+      "member_3_name": "Nombre Completo 3",
+      "alt_photo_prefix": "Foto de"
   },
   "ContactSection": {
       "title": "Ayuda y Contacto",
