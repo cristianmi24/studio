@@ -97,6 +97,7 @@
       "placeholder_message": "Write your query or comment here...",
       "button_send": "Send Message",
       "button_submitting": "Sending...",
+      "recipient_note": "Your message will be sent to {email}.",
       "toast_error_title": "Error",
       "toast_error_desc": "Please fill in all fields.",
       "toast_config_error_title": "Configuration Error",
@@ -105,14 +106,11 @@
       "toast_emailjs_success_desc": "Your inquiry has been sent successfully.",
       "toast_emailjs_error_title": "Sending Error",
       "toast_emailjs_error_desc": "There was a problem sending your message. Please try again later.",
-      "emailjs_info_title": "Information about Email Sending",
-      "emailjs_info_desc1": "This form uses EmailJS to send emails directly from your browser.",
-      "emailjs_info_step1": "Create an account on EmailJS.",
-      "emailjs_info_step2": "Add an email service (e.g., Gmail).",
-      "emailjs_info_step3": "Create an email template with variables like {{from_name}}, {{reply_to}}, {{message}}.",
-      "emailjs_info_step4": "Get your Service ID, Template ID, and Public Key and configure them in the environment variables (.env.local).",
+      "emailjs_info_title": "About Email Sending",
+      "emailjs_info_desc_generic": "This contact form uses the EmailJS service to send messages directly from the browser without requiring a dedicated backend.",
       "emailjs_security_title": "EmailJS Security",
-      "emailjs_security_desc": "The EmailJS Public Key is designed to be public and used on the frontend. However, EmailJS offers security measures in its dashboard (like allowed domain lists) to prevent abuse."
+      "emailjs_security_desc": "The EmailJS Public Key is intended for frontend use. Security measures (like allowed domains) should be configured in the EmailJS dashboard to prevent abuse.",
+      "emailjs_note": "To use this form in your own project, you must configure your own EmailJS account (Service ID, Template ID, Public Key) in the environment variables."
   },
    "Chatbot": {
     "fab_open": "Open Help Chat",
@@ -135,3 +133,4 @@
     "loading": "Loading..."
   }
 }
+

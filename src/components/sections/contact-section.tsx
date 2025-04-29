@@ -143,21 +143,20 @@ export function ContactSection() {
                   )}
                 </Button>
             </form>
+             <p className="mt-4 text-sm text-muted-foreground text-center">
+                 {t('recipient_note', { email: 'dataarch21@gmail.com' })}
+             </p>
             </CardContent>
         </Card>
          {/* Instructions/Explanation about EmailJS */}
         <div className="max-w-2xl mx-auto mt-6 p-4 bg-muted rounded-lg text-muted-foreground text-sm">
             <h4 className="font-semibold mb-2 text-foreground">{t('emailjs_info_title')}</h4>
-            <p className="mb-2">{t('emailjs_info_desc1')}</p>
-            <ul className="list-disc list-inside space-y-1 mb-2 pl-4">
-                <li>{t('emailjs_info_step1')}</li>
-                <li>{t('emailjs_info_step2')}</li>
-                <li>{t('emailjs_info_step3')}</li>
-                <li>{t('emailjs_info_step4')}</li>
-            </ul>
+             <p className="mb-2">{t('emailjs_info_desc_generic')}</p> {/* Updated description */}
             <p className="font-semibold mb-1 text-foreground">{t('emailjs_security_title')}</p>
             <p>{t('emailjs_security_desc')}</p>
+             <p className="mt-3 font-medium text-xs">{t('emailjs_note')}</p>
         </div>
     </section>
   );
 }
+

@@ -97,6 +97,7 @@
       "placeholder_message": "Escribe aquí tu consulta o comentario...",
       "button_send": "Enviar Mensaje",
       "button_submitting": "Enviando...",
+      "recipient_note": "Tu mensaje será enviado a {email}.",
       "toast_error_title": "Error",
       "toast_error_desc": "Por favor, completa todos los campos.",
       "toast_config_error_title": "Error de Configuración",
@@ -106,13 +107,10 @@
       "toast_emailjs_error_title": "Error al Enviar",
       "toast_emailjs_error_desc": "Hubo un problema al enviar tu mensaje. Inténtalo de nuevo más tarde.",
       "emailjs_info_title": "Información sobre el Envío de Correos",
-      "emailjs_info_desc1": "Este formulario utiliza EmailJS para enviar correos electrónicos directamente desde tu navegador.",
-      "emailjs_info_step1": "Crea una cuenta en EmailJS.",
-      "emailjs_info_step2": "Añade un servicio de correo (ej. Gmail).",
-      "emailjs_info_step3": "Crea una plantilla de correo con variables como {{from_name}}, {{reply_to}}, {{message}}.",
-      "emailjs_info_step4": "Obtén tu Service ID, Template ID y Public Key y configúralos en las variables de entorno (.env.local).",
+      "emailjs_info_desc_generic": "Este formulario de contacto utiliza el servicio EmailJS para enviar mensajes directamente desde el navegador, sin necesidad de un backend dedicado.",
       "emailjs_security_title": "Seguridad de EmailJS",
-      "emailjs_security_desc": "La Public Key de EmailJS está diseñada para ser pública y usarse en el frontend. Sin embargo, EmailJS ofrece medidas de seguridad en su panel (como listas de dominios permitidos) para prevenir abusos."
+      "emailjs_security_desc": "La Public Key de EmailJS está diseñada para ser pública y usarse en el frontend. Se deben configurar medidas de seguridad (como dominios permitidos) en el panel de EmailJS para prevenir abusos.",
+      "emailjs_note": "Para usar este formulario en tu propio proyecto, debes configurar tu propia cuenta de EmailJS (Service ID, Template ID, Public Key) en las variables de entorno."
   },
     "Chatbot": {
     "fab_open": "Abrir Chat de Ayuda",
@@ -135,3 +133,4 @@
     "loading": "Cargando..."
   }
 }
+
