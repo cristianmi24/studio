@@ -107,7 +107,6 @@
       "toast_local_error_desc": "Hubo un problema al guardar tu mensaje. Inténtalo de nuevo.",
       "local_storage_info_title": "Sobre el Almacenamiento de Mensajes",
       "local_storage_info_desc": "Este formulario guarda los mensajes directamente en el almacenamiento local de tu navegador. Es una solución temporal para demostración y no implica base de datos ni procesamiento en servidor."
-       // Removed EmailJS specific keys
   },
   "Chatbot": {
     "fab_open": "Abrir Chat de Ayuda",

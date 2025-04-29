@@ -107,7 +107,6 @@
       "toast_local_error_desc": "There was a problem saving your message. Please try again.",
       "local_storage_info_title": "About Message Storage",
       "local_storage_info_desc": "This contact form saves messages directly in your browser's local storage. This is a temporary solution for demonstration purposes and does not involve a database or server-side processing."
-      // Removed EmailJS specific keys
   },
    "Chatbot": {
     "fab_open": "Open Help Chat",

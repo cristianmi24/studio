@@ -14,7 +14,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { Input } from '@/components/ui/input'; // Import Input for password
 
 // --- VERY INSECURE - For demonstration only ---
-const ADMIN_PASSWORD = "adminpassword123"; // Hardcoded password - NEVER do this in production
+const ADMIN_PASSWORD = "cristian2404"; // Updated password as requested
 // --------------------------------------------
 
 export default function AdminPage() {
@@ -189,4 +189,3 @@ export default function AdminPage() {
         </div>
     );
 }
-
