@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -48,15 +49,21 @@ export function ContentSection() {
 
    // Map raw module data to potentially translated data if needed, or use keys
    // For simplicity, we'll use translation keys based on module ID for titles/descriptions
-   const modules = rawModulesData.map(module => ({
-     ...module,
-     title: t(`${module.id}_title`), // e.g., ContentSection.module-1_title
-     description: t(`${module.id}_desc`), // e.g., ContentSection.module-1_desc
-     // Translate summary points if they exist as keys, otherwise use original
-     summaryPoints: module.summaryPoints.map((_, index) =>
-        t(`${module.id}_pt${index + 1}`) // e.g., ContentSection.module-1_pt1
-     ),
-   }));
+   const modules = rawModulesData.map(module => {
+     // Determine the correct key based on module ID
+     const titleKey = `module-${module.id.split('-')[1]}_title`; // Correct key format like module-1_title
+     const descKey = `module-${module.id.split('-')[1]}_desc`; // Correct key format like module-1_desc
+
+     return {
+       ...module,
+       title: t(titleKey), // Use corrected key
+       description: t(descKey), // Use corrected key
+       // Translate summary points if they exist as keys, otherwise use original
+       summaryPoints: module.summaryPoints.map((_, index) =>
+          t(`module-${module.id.split('-')[1]}_pt${index + 1}`) // Correct key format like module-1_pt1
+       ),
+     }
+   });
 
 
   return (
@@ -99,10 +106,13 @@ export function ContentSection() {
                         ))}
                         </ul>
                          {/* Update Link href to include locale */}
+                         {/* Wrap Link children in a single element (span) to fix asChild error */}
                         <Button variant="link" asChild className="p-0 h-auto text-primary hover:text-accent transition-colors">
                             <Link href={`/${locale}/modules/${module.id}`} aria-label={`Ver más detalles sobre ${module.title}`}>
-                                {t('view_details')} {/* Translate button text */}
-                                <ExternalLink className="ml-1 h-4 w-4" />
+                                <span className="flex items-center"> {/* Wrap children */}
+                                    {t('view_details')}
+                                    <ExternalLink className="ml-1 h-4 w-4" />
+                                </span>
                             </Link>
                         </Button>
                     </CardContent>
@@ -115,3 +125,4 @@ export function ContentSection() {
     </section>
   );
 }
+
