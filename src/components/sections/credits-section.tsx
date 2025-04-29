@@ -1,10 +1,10 @@
+
 'use client'; // Potentially client component if interactions are added
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage, } from "@/components/ui/avatar";
 import { Linkedin, Github, Instagram } from "lucide-react";
 import Link from "next/link"; // Use standard next/link, no locale needed for external links
-import Image from 'next/image';
 import { useTranslations } from 'next-intl'; // Import useTranslations
 
 // Keep member data structure, translations will be applied during render
@@ -13,7 +13,7 @@ const teamMembersData = [
     id: 1, // Added ID for easier key mapping in translations
     nameKey: "member_1_name", // Key for translation file
     roleKey: "role_1",       // Key for translation file
-    imageUrl: "https://picsum.photos/seed/person1/100/100",
+    imageUrl: "/assets/credits/Profesor.jpeg", // Updated image URL
     social: {
       linkedin: "https://linkedin.com/in/username1",
       github: "https://github.com/username1",
@@ -25,7 +25,7 @@ const teamMembersData = [
     id: 2,
     nameKey: "member_2_name",
     roleKey: "role_2",
-    imageUrl: "https://picsum.photos/seed/person2/100/100",
+    imageUrl: "/assets/credits/Sami.jpeg", // Updated image URL
     social: {
       linkedin: "https://linkedin.com/in/username2",
       github: "https://github.com/username2",
@@ -37,7 +37,7 @@ const teamMembersData = [
     id: 3,
     nameKey: "member_3_name",
     roleKey: "role_3",
-    imageUrl: "https://picsum.photos/seed/person3/100/100",
+    imageUrl: "/assets/credits/Cristian.jpeg", // Updated image URL
     social: {
       linkedin: "https://linkedin.com/in/username3",
       github: "https://github.com/username3",
