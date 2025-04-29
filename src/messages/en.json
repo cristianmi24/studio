@@ -106,6 +106,7 @@
       "toast_emailjs_success_desc": "Your inquiry has been sent successfully.",
       "toast_emailjs_error_title": "Sending Error",
       "toast_emailjs_error_desc": "There was a problem sending your message. Please try again later.",
+      "emailjs_check_config_note": "Check your EmailJS configuration (Service ID, Template ID, Public Key) and template variables.",
       "emailjs_info_title": "About Email Sending",
       "emailjs_info_desc_generic": "This contact form uses the EmailJS service to send messages directly from the browser without requiring a dedicated backend.",
       "emailjs_security_title": "EmailJS Security",
@@ -133,4 +134,3 @@
     "loading": "Loading..."
   }
 }
-

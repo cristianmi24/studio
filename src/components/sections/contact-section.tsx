@@ -18,7 +18,7 @@ export function ContactSection() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Fetch environment variables
+  // Fetch environment variables - Ensure these are set in your .env.local file
   const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
   const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
   const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
@@ -26,7 +26,7 @@ export function ContactSection() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Basic validation (optional, as required attribute is set on inputs)
+    // Basic validation
     if (!form.current || !form.current.checkValidity()) {
       toast({
         title: t('toast_error_title'),
@@ -38,10 +38,10 @@ export function ContactSection() {
 
      // Check if EmailJS credentials are loaded
      if (!serviceId || !templateId || !publicKey) {
-        console.error("EmailJS environment variables are not configured properly.");
+        console.error("EmailJS environment variables are not configured properly. Ensure NEXT_PUBLIC_EMAILJS_SERVICE_ID, NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, and NEXT_PUBLIC_EMAILJS_PUBLIC_KEY are set in .env.local");
         toast({
-            title: t('toast_config_error_title'), // Add this translation key
-            description: t('toast_config_error_desc'), // Add this translation key
+            title: t('toast_config_error_title'),
+            description: t('toast_config_error_desc'),
             variant: "destructive",
         });
         return;
@@ -50,14 +50,28 @@ export function ContactSection() {
 
     setIsSubmitting(true);
 
+    // Ensure the current form exists before sending
+    if (!form.current) {
+        setIsSubmitting(false);
+        console.error("Form reference is not available.");
+         toast({
+            title: t('toast_emailjs_error_title'),
+            description: "Internal form error. Please refresh and try again.", // Generic internal error
+            variant: "destructive",
+          });
+        return;
+    }
+
+
     emailjs
+      // Parameters: serviceID, templateID, form DOM element, publicKey
       .sendForm(serviceId, templateId, form.current, publicKey)
       .then(
         (result) => {
           console.log('EmailJS Success:', result.text);
           toast({
-            title: t('toast_emailjs_success_title'), // Use new success title
-            description: t('toast_emailjs_success_desc'), // Use new success description
+            title: t('toast_emailjs_success_title'),
+            description: t('toast_emailjs_success_desc'),
           });
           // Reset form fields after successful submission
            if (form.current) {
@@ -65,11 +79,17 @@ export function ContactSection() {
            }
         },
         (error) => {
-          console.error('EmailJS Error:', error.text);
+          // Log the full error for debugging
+          console.error('EmailJS Error:', error);
+           // Display a more informative error message using error.text if available
+          const errorDescription = error?.text
+            ? `${t('toast_emailjs_error_desc')} Details: ${error.text}`
+            : t('toast_emailjs_error_desc');
           toast({
-            title: t('toast_emailjs_error_title'), // Use new error title
-            description: t('toast_emailjs_error_desc'), // Use new error description
+            title: t('toast_emailjs_error_title'),
+            description: errorDescription + " " + t('emailjs_check_config_note'), // Add note to check config
             variant: "destructive",
+            duration: 9000, // Give more time to read the error
           });
         }
       )
@@ -98,7 +118,7 @@ export function ContactSection() {
                 <Input
                     type="text"
                     id="name"
-                    name="from_name" // Standard EmailJS template variable for sender name
+                    name="from_name" // Ensure this matches {{from_name}} in your EmailJS template
                     placeholder={t('placeholder_name')}
                     required
                     aria-required="true"
@@ -110,7 +130,7 @@ export function ContactSection() {
                 <Input
                     type="email"
                     id="email"
-                    name="reply_to" // Standard EmailJS template variable for reply-to email
+                    name="reply_to" // Ensure this matches {{reply_to}} or your chosen email variable in EmailJS
                     placeholder={t('placeholder_email')}
                     required
                     aria-required="true"
@@ -121,7 +141,7 @@ export function ContactSection() {
                 <Label htmlFor="message">{t('label_message')}</Label>
                 <Textarea
                     id="message"
-                    name="message" // Standard EmailJS template variable for message content
+                    name="message" // Ensure this matches {{message}} in your EmailJS template
                     placeholder={t('placeholder_message')}
                     required
                     aria-required="true"
@@ -129,7 +149,7 @@ export function ContactSection() {
                     disabled={isSubmitting}
                 />
                 </div>
-                <Button type="submit" className="w-full md:w-auto" disabled={isSubmitting}>
+                <Button type="submit" className="w-full md:w-auto" disabled={isSubmitting || !serviceId || !templateId || !publicKey}>
                   {isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -159,4 +179,3 @@ export function ContactSection() {
     </section>
   );
 }
-
