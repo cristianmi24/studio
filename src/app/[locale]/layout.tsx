@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import '../globals.css'; // Adjust path relative to new location
@@ -10,7 +11,7 @@ import Preloader from '@/components/preloader';
 import Chatbot from '@/components/chatbot';
 import { NextIntlClientProvider } from 'next-intl';
 import { locales } from '@/i18n'; // Import locales
-import { getMessages } from 'next-intl/server'; // Import getMessages
+import { getMessages, unstable_setRequestLocale } from 'next-intl/server'; // Import getMessages & unstable_setRequestLocale
 
 const poppins = Poppins({
   weight: ['400', '600', '700'],
@@ -42,6 +43,9 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }>) {
+  // Set request locale - Essential for server components using next-intl
+  unstable_setRequestLocale(locale);
+
   // Use getMessages() to provide all messages for the client components
   // getRequestConfig in i18n.ts now handles locale validation.
   const messages = await getMessages();

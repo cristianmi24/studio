@@ -1,8 +1,10 @@
 📚 OVA: Introducción a la Ciencia de Datos
+
 ¡Bienvenido al OVA "Introducción a la Ciencia de Datos"!
 Este recurso educativo está diseñado para brindarte una primera aproximación al fascinante mundo de la ciencia de datos, combinando teoría, ejemplos prácticos y actividades interactivas.
 
 🎯 Objetivo
+
 Proporcionar a los estudiantes una comprensión básica de qué es la ciencia de datos, su importancia en el mundo actual y los conceptos fundamentales que la sustentan, incluyendo la recolección, procesamiento, análisis e interpretación de datos.
 
 📌 Contenidos Principales
