@@ -87,8 +87,8 @@
   },
   "ContactSection": {
       "title": "Ayuda y Contacto",
-      "card_title": "Envíanos tu consulta",
-      "card_desc": "¿Tienes preguntas, sugerencias o encontraste algún problema? Déjanos tu mensaje.",
+      "card_title_local": "Envíanos tu consulta",
+      "card_desc_local": "¿Tienes preguntas o sugerencias? Déjanos tu mensaje aquí.",
       "label_name": "Nombre",
       "placeholder_name": "Tu nombre completo",
       "label_email": "Correo Electrónico",
@@ -96,24 +96,20 @@
       "label_message": "Mensaje",
       "placeholder_message": "Escribe aquí tu consulta o comentario...",
       "button_send": "Enviar Mensaje",
-      "button_submitting": "Enviando...",
-      "recipient_note": "Tu mensaje será enviado a {email}.",
+      "button_saving": "Guardando...",
+      "storage_note": "Tu mensaje se guardará localmente en tu navegador.",
       "toast_error_title": "Error",
-      "toast_error_desc": "Por favor, completa todos los campos.",
-      "toast_config_error_title": "Error de Configuración",
-      "toast_config_error_desc": "El servicio de correo no está configurado. Contacta al administrador.",
-      "toast_emailjs_success_title": "¡Mensaje Enviado!",
-      "toast_emailjs_success_desc": "Tu consulta ha sido enviada correctamente.",
-      "toast_emailjs_error_title": "Error al Enviar",
-      "toast_emailjs_error_desc": "Hubo un problema al enviar tu mensaje. Inténtalo de nuevo más tarde.",
-      "emailjs_check_config_note": "Revisa tu configuración de EmailJS (Service ID, Template ID, Public Key) y las variables de la plantilla.",
-      "emailjs_info_title": "Información sobre el Envío de Correos",
-      "emailjs_info_desc_generic": "Este formulario de contacto utiliza el servicio EmailJS para enviar mensajes directamente desde el navegador, sin necesidad de un backend dedicado.",
-      "emailjs_security_title": "Seguridad de EmailJS",
-      "emailjs_security_desc": "La Public Key de EmailJS está diseñada para ser pública y usarse en el frontend. Se deben configurar medidas de seguridad (como dominios permitidos) en el panel de EmailJS para prevenir abusos.",
-      "emailjs_note": "Para usar este formulario en tu propio proyecto, debes configurar tu propia cuenta de EmailJS (Service ID, Template ID, Public Key) en las variables de entorno."
+      "toast_fields_required_desc": "Por favor, completa todos los campos.",
+      "toast_internal_error_desc": "Error interno del formulario. Refresca e intenta de nuevo.",
+      "toast_local_success_title": "¡Mensaje Guardado!",
+      "toast_local_success_desc": "Tu mensaje ha sido guardado correctamente.",
+      "toast_local_error_title": "Error al Guardar",
+      "toast_local_error_desc": "Hubo un problema al guardar tu mensaje. Inténtalo de nuevo.",
+      "local_storage_info_title": "Sobre el Almacenamiento de Mensajes",
+      "local_storage_info_desc": "Este formulario guarda los mensajes directamente en el almacenamiento local de tu navegador. Es una solución temporal para demostración y no implica base de datos ni procesamiento en servidor."
+       // Removed EmailJS specific keys
   },
-    "Chatbot": {
+  "Chatbot": {
     "fab_open": "Abrir Chat de Ayuda",
     "fab_close": "Cerrar Chat",
     "header_title": "Asistente de Ayuda",
@@ -130,7 +126,36 @@
     "faq_q5": "¿Los ejercicios son calificados?",
     "faq_a5": "Los ejercicios interactivos y las pruebas rápidas son principalmente para autoevaluación y práctica. No forman parte de una calificación formal."
   },
-   "Preloader": {
+  "Preloader": {
     "loading": "Cargando..."
+  },
+  "AdminPage": {
+      "page_title": "Mensajes de Contacto",
+      "auth_title": "Acceso de Administrador Requerido",
+      "auth_desc": "Por favor, introduce la contraseña para ver los mensajes.",
+      "auth_placeholder": "Contraseña",
+      "auth_button": "Autenticar",
+      "auth_warning": "Advertencia: Esta autenticación no es segura y es solo para demostración.",
+      "auth_success_title": "Autenticado",
+      "auth_error_title": "Autenticación Fallida",
+      "auth_error_desc": "Contraseña incorrecta.",
+      "loading_messages": "Cargando mensajes...",
+      "clear_button": "Borrar Todos los Mensajes",
+      "clear_confirm": "¿Estás seguro de que quieres borrar todos los mensajes? Esta acción no se puede deshacer.",
+      "clear_success_title": "Mensajes Borrados",
+      "clear_success_desc": "Todos los mensajes de contacto han sido eliminados.",
+      "clear_error_title": "Error al Borrar Mensajes",
+      "clear_error_desc": "No se pudieron borrar los mensajes del almacenamiento local.",
+      "table_title": "Mensajes Recibidos",
+      "table_desc_has_messages": "Mostrando {count, plural, =1 {1 mensaje} other {# mensajes}} guardados localmente.",
+      "table_desc_no_messages": "Aún no se han recibido mensajes.",
+      "col_timestamp": "Fecha",
+      "col_name": "Nombre",
+      "col_email": "Correo",
+      "col_message": "Mensaje",
+      "no_messages_text": "No hay mensajes para mostrar.",
+      "local_storage_note": "Los mensajes se almacenan en el almacenamiento local de tu navegador.",
+      "toast_load_error_title": "Error de Carga",
+      "toast_load_error_desc": "No se pudieron cargar los mensajes del almacenamiento local."
   }
 }

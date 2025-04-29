@@ -87,8 +87,8 @@
   },
   "ContactSection": {
       "title": "Help and Contact",
-      "card_title": "Send us your inquiry",
-      "card_desc": "Do you have questions, suggestions, or found an issue? Leave us your message.",
+      "card_title_local": "Send us your inquiry",
+      "card_desc_local": "Do you have questions or suggestions? Leave us your message here.",
       "label_name": "Name",
       "placeholder_name": "Your full name",
       "label_email": "Email Address",
@@ -96,22 +96,18 @@
       "label_message": "Message",
       "placeholder_message": "Write your query or comment here...",
       "button_send": "Send Message",
-      "button_submitting": "Sending...",
-      "recipient_note": "Your message will be sent to {email}.",
+      "button_saving": "Saving...",
+      "storage_note": "Your message will be saved locally in your browser.",
       "toast_error_title": "Error",
-      "toast_error_desc": "Please fill in all fields.",
-      "toast_config_error_title": "Configuration Error",
-      "toast_config_error_desc": "The email service is not configured. Contact the administrator.",
-      "toast_emailjs_success_title": "Message Sent!",
-      "toast_emailjs_success_desc": "Your inquiry has been sent successfully.",
-      "toast_emailjs_error_title": "Sending Error",
-      "toast_emailjs_error_desc": "There was a problem sending your message. Please try again later.",
-      "emailjs_check_config_note": "Check your EmailJS configuration (Service ID, Template ID, Public Key) and template variables.",
-      "emailjs_info_title": "About Email Sending",
-      "emailjs_info_desc_generic": "This contact form uses the EmailJS service to send messages directly from the browser without requiring a dedicated backend.",
-      "emailjs_security_title": "EmailJS Security",
-      "emailjs_security_desc": "The EmailJS Public Key is intended for frontend use. Security measures (like allowed domains) should be configured in the EmailJS dashboard to prevent abuse.",
-      "emailjs_note": "To use this form in your own project, you must configure your own EmailJS account (Service ID, Template ID, Public Key) in the environment variables."
+      "toast_fields_required_desc": "Please fill in all fields.",
+      "toast_internal_error_desc": "Internal form error. Please refresh and try again.",
+      "toast_local_success_title": "Message Saved!",
+      "toast_local_success_desc": "Your message has been saved successfully.",
+      "toast_local_error_title": "Saving Error",
+      "toast_local_error_desc": "There was a problem saving your message. Please try again.",
+      "local_storage_info_title": "About Message Storage",
+      "local_storage_info_desc": "This contact form saves messages directly in your browser's local storage. This is a temporary solution for demonstration purposes and does not involve a database or server-side processing."
+      // Removed EmailJS specific keys
   },
    "Chatbot": {
     "fab_open": "Open Help Chat",
@@ -130,7 +126,36 @@
     "faq_q5": "Are the exercises graded?",
     "faq_a5": "The interactive exercises and quick quizzes are mainly for self-assessment and practice. They are not part of a formal grade."
   },
-    "Preloader": {
+  "Preloader": {
     "loading": "Loading..."
+  },
+  "AdminPage": {
+      "page_title": "Contact Messages",
+      "auth_title": "Admin Access Required",
+      "auth_desc": "Please enter the password to view messages.",
+      "auth_placeholder": "Password",
+      "auth_button": "Authenticate",
+      "auth_warning": "Warning: This authentication is insecure and for demonstration only.",
+      "auth_success_title": "Authenticated",
+      "auth_error_title": "Authentication Failed",
+      "auth_error_desc": "Incorrect password.",
+      "loading_messages": "Loading messages...",
+      "clear_button": "Clear All Messages",
+      "clear_confirm": "Are you sure you want to delete all messages? This action cannot be undone.",
+      "clear_success_title": "Messages Cleared",
+      "clear_success_desc": "All contact messages have been deleted.",
+      "clear_error_title": "Error Clearing Messages",
+      "clear_error_desc": "Could not clear messages from local storage.",
+      "table_title": "Received Messages",
+      "table_desc_has_messages": "Showing {count, plural, =1 {1 message} other {# messages}} stored locally.",
+      "table_desc_no_messages": "No messages have been received yet.",
+      "col_timestamp": "Timestamp",
+      "col_name": "Name",
+      "col_email": "Email",
+      "col_message": "Message",
+      "no_messages_text": "No messages to display.",
+      "local_storage_note": "Messages are stored in your browser's local storage.",
+      "toast_load_error_title": "Loading Error",
+      "toast_load_error_desc": "Could not load messages from local storage."
   }
 }

@@ -2,100 +2,102 @@
 'use client';
 
 import { useState, useRef, type FormEvent } from 'react';
-import emailjs from '@emailjs/browser'; // Import emailjs
+// import emailjs from '@emailjs/browser'; // Removed EmailJS
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Send, Loader2 } from 'lucide-react'; // Import Loader2 for loading state
+import { Send, Loader2 } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { useTranslations } from 'next-intl';
 
+// Interface for contact messages
+export interface ContactMessage {
+    id: string;
+    name: string;
+    email: string;
+    message: string;
+    timestamp: string;
+}
+
 export function ContactSection() {
   const t = useTranslations('ContactSection');
-  const form = useRef<HTMLFormElement>(null); // Ref for the form element
+  const form = useRef<HTMLFormElement>(null);
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Fetch environment variables - Ensure these are set in your .env.local file
-  const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-  const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+  // Removed EmailJS environment variables
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Basic validation
-    if (!form.current || !form.current.checkValidity()) {
-      toast({
-        title: t('toast_error_title'),
-        description: t('toast_error_desc'),
-        variant: "destructive",
-      });
-      return;
-    }
-
-     // Check if EmailJS credentials are loaded
-     if (!serviceId || !templateId || !publicKey) {
-        console.error("EmailJS environment variables are not configured properly. Ensure NEXT_PUBLIC_EMAILJS_SERVICE_ID, NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, and NEXT_PUBLIC_EMAILJS_PUBLIC_KEY are set in .env.local");
-        toast({
-            title: t('toast_config_error_title'),
-            description: t('toast_config_error_desc'),
-            variant: "destructive",
-        });
-        return;
-    }
-
-
     setIsSubmitting(true);
 
-    // Ensure the current form exists before sending
     if (!form.current) {
         setIsSubmitting(false);
         console.error("Form reference is not available.");
-         toast({
-            title: t('toast_emailjs_error_title'),
-            description: "Internal form error. Please refresh and try again.", // Generic internal error
+        toast({
+            title: t('toast_error_title'),
+            description: t('toast_internal_error_desc'), // Generic internal error
             variant: "destructive",
           });
         return;
     }
 
 
-    emailjs
-      // Parameters: serviceID, templateID, form DOM element, publicKey
-      .sendForm(serviceId, templateId, form.current, publicKey)
-      .then(
-        (result) => {
-          console.log('EmailJS Success:', result.text);
-          toast({
-            title: t('toast_emailjs_success_title'),
-            description: t('toast_emailjs_success_desc'),
-          });
-          // Reset form fields after successful submission
-           if (form.current) {
-             form.current.reset();
-           }
-        },
-        (error) => {
-          // Log the full error for debugging
-          console.error('EmailJS Error:', error);
-           // Display a more informative error message using error.text if available
-          const errorDescription = error?.text
-            ? `${t('toast_emailjs_error_desc')} Details: ${error.text}`
-            : t('toast_emailjs_error_desc');
-          toast({
-            title: t('toast_emailjs_error_title'),
-            description: errorDescription + " " + t('emailjs_check_config_note'), // Add note to check config
-            variant: "destructive",
-            duration: 9000, // Give more time to read the error
-          });
-        }
-      )
-      .finally(() => {
-        setIsSubmitting(false); // Re-enable button regardless of success or failure
+    // Basic validation (HTML5 required attribute should handle this, but added for robustness)
+    const nameInput = form.current.elements.namedItem('contact_name') as HTMLInputElement;
+    const emailInput = form.current.elements.namedItem('contact_email') as HTMLInputElement;
+    const messageInput = form.current.elements.namedItem('contact_message') as HTMLTextAreaElement;
+
+    if (!nameInput?.value || !emailInput?.value || !messageInput?.value) {
+      toast({
+        title: t('toast_error_title'),
+        description: t('toast_fields_required_desc'),
+        variant: "destructive",
       });
+       setIsSubmitting(false);
+      return;
+    }
+
+     // Simulate submission delay
+    setTimeout(() => {
+         try {
+            // Get existing messages from localStorage
+            const existingMessagesRaw = localStorage.getItem('contactMessages');
+            const existingMessages: ContactMessage[] = existingMessagesRaw ? JSON.parse(existingMessagesRaw) : [];
+
+            // Create new message object
+            const newMessage: ContactMessage = {
+                id: Date.now().toString(), // Simple unique ID
+                name: nameInput.value,
+                email: emailInput.value,
+                message: messageInput.value,
+                timestamp: new Date().toISOString(),
+            };
+
+            // Add new message and save back to localStorage
+            existingMessages.push(newMessage);
+            localStorage.setItem('contactMessages', JSON.stringify(existingMessages));
+
+            console.log('Message saved to localStorage:', newMessage);
+            toast({
+                title: t('toast_local_success_title'),
+                description: t('toast_local_success_desc'),
+            });
+            form.current?.reset(); // Reset form fields
+
+        } catch (error) {
+             console.error('Error saving message to localStorage:', error);
+             toast({
+                title: t('toast_local_error_title'),
+                description: t('toast_local_error_desc'),
+                variant: "destructive",
+             });
+        } finally {
+             setIsSubmitting(false); // Re-enable button
+        }
+    }, 500); // Simulate network delay
   };
 
   return (
@@ -105,32 +107,32 @@ export function ContactSection() {
       </h2>
         <Card className="max-w-2xl mx-auto shadow-lg">
             <CardHeader>
-            <CardTitle>{t('card_title')}</CardTitle>
+            <CardTitle>{t('card_title_local')}</CardTitle> {/* Updated title */}
             <CardDescription>
-                 {t('card_desc')}
+                 {t('card_desc_local')} {/* Updated description */}
             </CardDescription>
             </CardHeader>
             <CardContent>
-            {/* Add ref and ensure input names match EmailJS template variables */}
+            {/* Ensure input names are unique */}
             <form ref={form} onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid w-full items-center gap-1.5">
-                <Label htmlFor="name">{t('label_name')}</Label>
+                <Label htmlFor="contact_name">{t('label_name')}</Label>
                 <Input
                     type="text"
-                    id="name"
-                    name="from_name" // Ensure this matches {{from_name}} in your EmailJS template
+                    id="contact_name"
+                    name="contact_name" // Changed name
                     placeholder={t('placeholder_name')}
                     required
                     aria-required="true"
-                    disabled={isSubmitting} // Disable input during submission
+                    disabled={isSubmitting}
                 />
                 </div>
                 <div className="grid w-full items-center gap-1.5">
-                <Label htmlFor="email">{t('label_email')}</Label>
+                <Label htmlFor="contact_email">{t('label_email')}</Label>
                 <Input
                     type="email"
-                    id="email"
-                    name="reply_to" // Ensure this matches {{reply_to}} or your chosen email variable in EmailJS
+                    id="contact_email"
+                    name="contact_email" // Changed name
                     placeholder={t('placeholder_email')}
                     required
                     aria-required="true"
@@ -138,10 +140,10 @@ export function ContactSection() {
                 />
                 </div>
                 <div className="grid w-full items-center gap-1.5">
-                <Label htmlFor="message">{t('label_message')}</Label>
+                <Label htmlFor="contact_message">{t('label_message')}</Label>
                 <Textarea
-                    id="message"
-                    name="message" // Ensure this matches {{message}} in your EmailJS template
+                    id="contact_message"
+                    name="contact_message" // Changed name
                     placeholder={t('placeholder_message')}
                     required
                     aria-required="true"
@@ -149,11 +151,11 @@ export function ContactSection() {
                     disabled={isSubmitting}
                 />
                 </div>
-                <Button type="submit" className="w-full md:w-auto" disabled={isSubmitting || !serviceId || !templateId || !publicKey}>
+                <Button type="submit" className="w-full md:w-auto" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      {t('button_submitting')} {/* Translate submitting text */}
+                      {t('button_saving')} {/* Updated submitting text */}
                     </>
                   ) : (
                     <>
@@ -163,19 +165,17 @@ export function ContactSection() {
                   )}
                 </Button>
             </form>
+             {/* Removed recipient note */}
              <p className="mt-4 text-sm text-muted-foreground text-center">
-                 {t('recipient_note', { email: 'dataarch21@gmail.com' })}
+                 {t('storage_note')} {/* Add note about local storage */}
              </p>
             </CardContent>
         </Card>
-         {/* Instructions/Explanation about EmailJS */}
-        <div className="max-w-2xl mx-auto mt-6 p-4 bg-muted rounded-lg text-muted-foreground text-sm">
-            <h4 className="font-semibold mb-2 text-foreground">{t('emailjs_info_title')}</h4>
-             <p className="mb-2">{t('emailjs_info_desc_generic')}</p> {/* Updated description */}
-            <p className="font-semibold mb-1 text-foreground">{t('emailjs_security_title')}</p>
-            <p>{t('emailjs_security_desc')}</p>
-             <p className="mt-3 font-medium text-xs">{t('emailjs_note')}</p>
-        </div>
+         {/* Removed EmailJS specific instructions */}
+         <div className="max-w-2xl mx-auto mt-6 p-4 bg-muted rounded-lg text-muted-foreground text-sm">
+             <h4 className="font-semibold mb-2 text-foreground">{t('local_storage_info_title')}</h4>
+             <p>{t('local_storage_info_desc')}</p>
+         </div>
     </section>
   );
 }
