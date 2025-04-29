@@ -32,8 +32,8 @@ export function HeroSection() {
         </p>
 
         <div className="space-y-4 md:space-y-0 md:space-x-4">
-           {/* Link target might need locale if not handled automatically */}
-          <Button className="w-full md:w-1/3" asChild>
+          {/* Removed asChild prop to fix error. Link remains inside Button. */}
+          <Button className="w-full md:w-1/3">
             <Link href={`/${locale}/contenido`}>{t('start_learning')}</Link> {/* Translate & Add Locale */}
           </Button>
         </div>

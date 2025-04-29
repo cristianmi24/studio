@@ -33,7 +33,6 @@ export const buttonVariants = cva(
   }
 );
 
-
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
@@ -44,6 +43,12 @@ export interface ButtonProps
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, children, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
+
+    // Verifying that if `asChild` is true, we only have one child element
+    if (asChild && React.Children.count(children) !== 1) {
+      throw new Error("Button with 'asChild' prop must only have one child element.");
+    }
+
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
