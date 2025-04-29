@@ -13,7 +13,7 @@ const teamMembersData = [
     id: 1, // Added ID for easier key mapping in translations
     nameKey: "member_1_name", // Key for translation file
     roleKey: "role_1",       // Key for translation file
-    imageUrl: "/assets/credits/Profesor.jpeg", // Updated image URL
+    imageUrl: "/assets/credits/Profesor.jpeg", // Path relative to the `public` directory
     social: {
       linkedin: "https://linkedin.com/in/username1",
       github: "https://github.com/username1",
@@ -25,7 +25,7 @@ const teamMembersData = [
     id: 2,
     nameKey: "member_2_name",
     roleKey: "role_2",
-    imageUrl: "/assets/credits/Sami.jpeg", // Updated image URL
+    imageUrl: "/assets/credits/Sami.jpeg", // Path relative to the `public` directory
     social: {
       linkedin: "https://linkedin.com/in/username2",
       github: "https://github.com/username2",
@@ -37,7 +37,7 @@ const teamMembersData = [
     id: 3,
     nameKey: "member_3_name",
     roleKey: "role_3",
-    imageUrl: "/assets/credits/Cristian.jpeg", // Updated image URL
+    imageUrl: "/assets/credits/Cristian.jpeg", // Path relative to the `public` directory
     social: {
       linkedin: "https://linkedin.com/in/username3",
       github: "https://github.com/username3",
@@ -63,7 +63,8 @@ export function CreditsSection() {
            return (
              <Card key={member.id} className="flex flex-col items-center text-center p-6 shadow-lg rounded-xl hover:scale-105 transition-transform duration-300">
                 <Avatar className="w-24 h-24 mb-4 border-2 border-primary">
-                <AvatarImage src={member.imageUrl} alt={`${t('alt_photo_prefix') || 'Photo of'} ${name}`} /> {/* Add translatable prefix */}
+                {/* Ensure the src path is correct relative to the public folder */}
+                <AvatarImage src={member.imageUrl} alt={`${t('alt_photo_prefix') || 'Photo of'} ${name}`} />
                 <AvatarFallback className="text-2xl bg-muted">{member.fallback}</AvatarFallback>
                 </Avatar>
                 <CardHeader className="p-0">
