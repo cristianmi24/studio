@@ -5,7 +5,7 @@
 import Link from 'next/link'; // Use next-intl Link
 import { Button, buttonVariants } from '@/components/ui/button'; // Import buttonVariants
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
-import { Menu, Database, Sun, Moon, ChevronDown, Languages } from 'lucide-react'; // Add Languages icon
+import { Menu, Database, Sun, Moon, ChevronDown, Languages, UserCog } from 'lucide-react'; // Add Languages icon & UserCog
 import { useTheme } from 'next-themes';
 import * as React from 'react';
 import {
@@ -71,6 +71,7 @@ export function Header({ locale }: HeaderProps) {
     { label: t('nav_exercises'), href: `/${locale}/ejercicios` },
     { label: t('nav_credits'), href: `/${locale}/creditos` },
     { label: t('nav_contact'), href: `/${locale}/contacto` },
+    { label: t('nav_admin'), href: `/${locale}/admin`, icon: UserCog }, // Add Admin link with icon
     ];
 
 
@@ -88,18 +89,22 @@ export function Header({ locale }: HeaderProps) {
           {/* Desktop Nav */}
           <nav className="flex items-center gap-1 text-sm">
              {/* **FIX**: Removed Button asChild, applied styles directly to Link */}
-             {navItemsBase.map((item) => (
+             {navItemsBase.map((item) => {
+                const Icon = item.icon;
+                return (
                  <Link
                     key={item.label}
                     href={item.href}
                     className={cn(
                         buttonVariants({ variant: "ghost" }), // Apply button styles
-                        "transition-colors hover:text-foreground/80 text-foreground/60 px-3" // Keep original classes
+                        "transition-colors hover:text-foreground/80 text-foreground/60 px-3 flex items-center gap-1" // Keep original classes + flex for icon
                     )}
                     >
+                    {Icon && <Icon className="h-4 w-4" />} {/* Render icon if available */}
                     {item.label}
                 </Link>
-            ))}
+                )
+             })}
             {/* Contenido Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -159,16 +164,20 @@ export function Header({ locale }: HeaderProps) {
             </Link>
             <div className="flex flex-col space-y-2 px-2">
                {/* Update links and close sheet on click */}
-              {navItemsBase.map((item) => (
-                 <SheetClose key={item.label} asChild>
-                    <Link
-                        href={item.href}
-                        className="block rounded-md px-4 py-2 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent"
-                        >
-                        {item.label}
-                    </Link>
-                </SheetClose>
-              ))}
+              {navItemsBase.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                     <SheetClose key={item.label} asChild>
+                        <Link
+                            href={item.href}
+                            className="flex items-center gap-2 rounded-md px-4 py-2 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent"
+                            >
+                            {Icon && <Icon className="h-4 w-4" />} {/* Render icon if available */}
+                            {item.label}
+                        </Link>
+                    </SheetClose>
+                  )
+                })}
                {/* Mobile Accordion for Contenido */}
                 <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="item-1" className="border-b-0">
