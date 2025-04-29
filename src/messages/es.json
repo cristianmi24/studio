@@ -82,12 +82,12 @@
   },
   "CreditsSection": {
       "title": "Créditos",
-      "role_1": "Diseñador Instruccional",
-      "role_2": "Desarrollador Frontend",
-      "role_3": "Experto en Contenido",
-      "member_1_name": "Nombre Completo 1",
-      "member_2_name": "Nombre Completo 2",
-      "member_3_name": "Nombre Completo 3",
+      "role_1": "Estudiante de la U de Cordobá",
+      "role_2": "Profesor De la U. de Cordobá",
+      "role_3": "Estudiante de la U de Cordobá",
+      "member_1_name": "Cristian Peñata ",
+      "member_2_name": "Victor Castro",
+      "member_3_name": "Andreina Sami",
       "alt_photo_prefix": "Foto de"
   },
   "ContactSection": {

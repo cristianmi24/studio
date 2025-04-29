@@ -13,7 +13,7 @@ const teamMembersData = [
     id: 1, // Added ID for easier key mapping in translations
     nameKey: "member_1_name", // Key for translation file
     roleKey: "role_1",       // Key for translation file
-    imageUrl: "/assets/credits/Profesor.jpeg", // Path relative to the `public` directory
+    imageUrl: "https://pbs.twimg.com/profile_images/1909817501640175616/gM7Wv4cw_400x400.jpg", // Path relative to the `public` directory
     social: {
       linkedin: "https://linkedin.com/in/username1",
       github: "https://github.com/username1",
@@ -25,7 +25,7 @@ const teamMembersData = [
     id: 2,
     nameKey: "member_2_name",
     roleKey: "role_2",
-    imageUrl: "/assets/credits/Sami.jpeg", // Path relative to the `public` directory
+    imageUrl: "https://media.licdn.com/dms/image/v2/D4E03AQHXYLM__g3Mqg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1677090533027?e=1751500800&v=beta&t=cn8p_F1NyzlqFsUBpBuBME1Z4gBvADgHA-I79k5aeBI",
     social: {
       linkedin: "https://linkedin.com/in/username2",
       github: "https://github.com/username2",
@@ -37,7 +37,7 @@ const teamMembersData = [
     id: 3,
     nameKey: "member_3_name",
     roleKey: "role_3",
-    imageUrl: "/assets/credits/Cristian.jpeg", // Path relative to the `public` directory
+    imageUrl: "https://pbs.twimg.com/profile_images/1856212805537394688/UdaqYNUk_400x400.jpg",
     social: {
       linkedin: "https://linkedin.com/in/username3",
       github: "https://github.com/username3",

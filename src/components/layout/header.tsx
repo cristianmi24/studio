@@ -67,12 +67,13 @@ export function Header({ locale }: HeaderProps) {
   // Update hrefs to include locale and use translated labels
     const navItemsBase = [
     { label: t('nav_home'), href: `/${locale}/` },
-    // Content is handled separately
-    { label: t('nav_exercises'), href: `/${locale}/ejercicios` },
+    { label: t('nav_exercises'), href: `/${locale}/ejercicios` },    
     { label: t('nav_credits'), href: `/${locale}/creditos` },
-    { label: t('nav_contact'), href: `/${locale}/contacto` },
-    { label: t('nav_admin'), href: `/${locale}/admin`, icon: UserCog }, // Add Admin link with icon
+    { label: t('nav_contact'), href: `/${locale}/contacto` },    
+    { label: t('nav_content'), href: `/${locale}/contenido` }, 
+    { label: t('nav_admin'), href: `/${locale}/admin`, icon: UserCog },// Add nav_content
     ];
+
 
 
   return (

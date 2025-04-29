@@ -78,12 +78,12 @@
   },
   "CreditsSection": {
       "title": "Credits",
-      "role_1": "Instructional Designer",
-      "role_2": "Frontend Developer",
-      "role_3": "Content Expert",
-      "member_1_name": "Full Name 1",
-      "member_2_name": "Full Name 2",
-      "member_3_name": "Full Name 3",
+      "role_1": "Student at the University of Córdoba",
+      "role_2": "Professor at the University of Córdoba",
+      "role_3": "Student at the University of Córdoba",
+      "member_1_name": "Cristian Peñata ",
+      "member_2_name": "Victor Castro",
+      "member_3_name": "Andreina Sami",
       "alt_photo_prefix": "Photo of"
   },
   "ContactSection": {
