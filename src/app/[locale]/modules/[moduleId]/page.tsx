@@ -1,8 +1,9 @@
+
 import { getModuleById, type Module } from '@/lib/modules-data';
 import { notFound } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link'; // Use next-intl Link
+import Link from 'next/link'; // Use next/link
 import { ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'; // Import for translations
@@ -93,10 +94,11 @@ export default async function ModulePage({ params }: { params: ModulePageParams 
   return (
     <div className="container py-12 md:py-20">
        {/* Update Link href to include locale */}
-       <Button variant="outline" asChild className="mb-8">
-            <Link href={`/${params.locale}/contenido`}>
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                {t('back_to_content')} {/* Translate button text */}
+       {/* Removed asChild to fix error, wrap Link content in a span */}
+       <Button variant="outline" className="mb-8">
+            <Link href={`/${params.locale}/contenido`} className="flex items-center justify-center gap-2">
+                <ArrowLeft className="h-4 w-4" />
+                <span>{t('back_to_content')}</span> {/* Wrap text in span */}
             </Link>
        </Button>
 
@@ -122,3 +124,4 @@ export default async function ModulePage({ params }: { params: ModulePageParams 
     </div>
   );
 }
+
