@@ -106,13 +106,10 @@ export function ContentSection() {
                         ))}
                         </ul>
                          {/* Update Link href to include locale */}
-                         {/* Wrap Link children in a single element (span) to fix asChild error */}
-                        <Button variant="link" asChild className="p-0 h-auto text-primary hover:text-accent transition-colors">
-                            <Link href={`/${locale}/modules/${module.id}`} aria-label={`Ver más detalles sobre ${module.title}`}>
-                                <span className="flex items-center"> {/* Wrap children */}
-                                    {t('view_details')}
-                                    <ExternalLink className="ml-1 h-4 w-4" />
-                                </span>
+                        {/* Removed asChild, Link is now inside the Button */}
+                        <Button variant="link" className="p-0 h-auto text-primary hover:text-accent transition-colors cursor-pointer">
+                            <Link href={`/${locale}/modules/${module.id}`} aria-label={`Ver más detalles sobre ${module.title}`} className='flex items-center'>
+                                {t('view_details')} <ExternalLink className="ml-1 h-4 w-4" />
                             </Link>
                         </Button>
                     </CardContent>
