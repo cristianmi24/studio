@@ -55,7 +55,7 @@ export default async function LocaleLayout({
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
-          poppins.variable
+          poppins.variable // Apply the font variable here
         )}
       >
          {/* Wrap content with NextIntlClientProvider */}
