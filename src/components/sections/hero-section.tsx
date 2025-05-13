@@ -50,7 +50,7 @@ export function HeroSection() {
       {/* Hero Image */}
       <div className="z-10 order-first lg:order-last flex justify-center items-center">
         <Image
-          src="https://picsum.photos/seed/data-study/600/400" // Placeholder image related to data/studying
+          src="https://www.yarquitectura.com/wp-content/uploads/2023/06/arquitectura-de-datos.png" // Placeholder image related to data/studying
            // Alt text can be translated if needed, but might be less critical
           alt={t('app_name')} // Simple alt text using app name
           width={600}

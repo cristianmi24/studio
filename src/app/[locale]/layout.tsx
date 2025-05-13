@@ -38,11 +38,12 @@ export function generateStaticParams() {
 
 export default async function LocaleLayout({
   children,
-  params: { locale } // Destructure locale from params
+  params
 }: Readonly<{
   children: React.ReactNode;
   params: { locale: string };
 }>) {
+  const { locale } = await params; // Await params and then destructure locale
   // Set request locale - Essential for server components using next-intl
   unstable_setRequestLocale(locale);
 
